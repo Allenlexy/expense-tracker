@@ -17,7 +17,7 @@ connectDB();
 // Middleware
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://expense-tracker-frontend-your-url.vercel.app'] 
+    ? ['https://expense-tracker-beta-orpin.vercel.app'] 
     : 'http://localhost:3000',
   credentials: true
 }));
@@ -31,6 +31,11 @@ router.delete('/expenses/:id', deleteExpense);
 router.get('/expenses/stats', getExpenseStats);
 
 app.use('/api', router);
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
